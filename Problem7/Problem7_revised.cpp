@@ -2,7 +2,6 @@
 #include <algorithm>
 #include <cstring>
 using namespace std;
-
 struct point
 {
     int x, y, index;
@@ -15,11 +14,9 @@ struct point
         return this->y < compare.y;
     }
 };
-point points[300000], save[300000];
-int result[300000];
-void solve(int left, int right)
+void solve(int left, int right, point points[], point save[], int result[])
 {
-    //切到1個點的時候直接結束
+    //切到1個點的時候直接return
     if (right - left <= 1)
         return;
     int middle = left + (right - left) / 2;
@@ -29,8 +26,8 @@ void solve(int left, int right)
     int k = left;
 
     //Divide
-    solve(left, middle);
-    solve(middle, right);
+    solve(left, middle, points, save, result);
+    solve(middle, right, points, save, result);
 
     //Conquer
     while (i < middle || j < right)
@@ -46,13 +43,13 @@ void solve(int left, int right)
             save[k] = points[i];
             i++;
         }
-        else if (points[i].y <= points[j].y)
+        else if (points[i].y <= points[j].y) //支配點
         {
             save[k] = points[i];
             counter++;
             i++;
         }
-        else
+        else // points[i].y > points[j].y
         {
             save[k] = points[j];
             result[save[k].index] += counter;
@@ -60,6 +57,7 @@ void solve(int left, int right)
         }
         k++;
     }
+    //Merge
     for (i = left; i < right; i++)
     {
         points[i] = save[i];
@@ -71,6 +69,8 @@ int main()
     cin.tie(NULL);
     int amount;
     cin >> amount;
+    point points[amount], save[amount];
+    int result[amount];
     memset(result, 0, sizeof(result));
     for (int i = 0; i < amount; i++)
     {
@@ -78,7 +78,7 @@ int main()
         points[i].index = i;
     }
     sort(points, points + amount);
-    solve(0, amount);
+    solve(0, amount, points, save, result);
     for (int i = 0; i < amount; i++)
     {
         cout << result[i] << " ";

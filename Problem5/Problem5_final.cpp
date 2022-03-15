@@ -19,6 +19,7 @@ void merge(vector<int> &nums, int low, int mid, int high, long int &c)
         {
             temp[k++] = nums[j++];
             c += mid - i + 1;
+            c %= 524287;
         }
     }
     while (i <= mid)
