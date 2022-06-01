@@ -1,5 +1,3 @@
-#include <iostream>
-#include <algorithm>
 #include <bits/stdc++.h>
 using namespace std;
 int main(void)
@@ -7,14 +5,10 @@ int main(void)
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int k, m, n;
-    int input;
     cin >> n >> m >> k;
     int *arr = new int[n];
     for (int i = 0; i < n; i++)
-    {
-        cin >> input;
-        arr[i] = input;
-    }
+        cin >> arr[i];
     multiset<int> records(arr, arr + m);
     int start = 0;
     int counter = 0;
@@ -27,14 +21,10 @@ int main(void)
         cout << *itr << " ";
         records.insert(arr[start + m]);
         if (counter > arr[start + m])
-        {
             advance(itr, -1);
-        }
         counter = *itr;
         if (counter >= arr[start])
-        {
             advance(itr, 1);
-        }
         records.erase(records.find(arr[start]));
         ++start;
     }
