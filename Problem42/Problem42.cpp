@@ -50,10 +50,8 @@ int cal(int a, int b)
 {
     int c = 0;
     for (int i = 0; i < 7; i++)
-    {
         if (code[a][i] != code[b][i])
             c++;
-    }
     return c;
 }
 int main()
@@ -66,16 +64,10 @@ int main()
     {
         init(n);
         for (int i = 1; i <= n; i++)
-        {
             cin >> code[i];
-        }
         for (int i = 1; i <= n - 1; i++)
-        {
             for (int j = i + 1; j <= n; j++)
-            {
                 maps[i][j] = maps[j][i] = cal(i, j);
-            }
-        }
         int ans = prim(n);
         printf("The highest possible quality is 1/%d.\n", ans);
     }
