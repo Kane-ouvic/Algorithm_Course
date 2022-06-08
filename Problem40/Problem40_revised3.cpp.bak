@@ -24,4 +24,13 @@ cin.tie(NULL);
 int N,M,C,u,v,w,f;
 cin>>N>>M>>C;
 g l[2*N];
-for(int i=0;i<N;i++){cin >> f;add(l,N-1+f,i,0);if(f==1)add(l,i,N+f,C);else if(f==N)add(l,i,N-2+f,C);else{add(l,i,N+f,C);add(l,i,N-2+f,C);}}for(int i=0;i<M;i++){cin>>u>>v>>w;u--;v--;add(l,u,v,w);add(l,v,u,w);}dij(l,0,N);}
+for(int i=0;i<N;i++){
+cin >> f;add(l,N-1+f,i,0);
+if(f==1)
+    add(l,i,N+f,C);
+else if(f==N)
+    add(l,i,N-2+f,C);
+else{add(l,i,N+f,C);add(l,i,N-2+f,C);}}
+for(int i=0;i<M;i++){
+cin>>u>>v>>w;u--;v--;add(l,u,v,w);add(l,v,u,w);}
+dij(l,0,N);}
